@@ -20,14 +20,14 @@ logger = get_logger(__name__)
     response_model=ScanResponse,
 )
 async def scan(file: UploadFile = File(...)) -> ScanResponse:
-    content = await file.read()
     # Validate file size
-    if len(content) > UPLOAD_MAX_SIZE:
+    if file.size > UPLOAD_MAX_SIZE:
         logger.warning("File is too large")
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="File is too large. Max size is 32MB",
         )
+    content = await file.read()
     try:
         with tempfile.NamedTemporaryFile(delete=True) as temp_file:
             temp_file.write(content)
