@@ -1,27 +1,19 @@
 # Python
 import time
-import logging
 # External
 import requests
 # App
-from app.config import VT_API_KEY, VT_API_URL
+from app.config import VT_API_KEY, VT_API_URL, get_logger
 from app.schemas import VTUploadResponse, VTAnalysisResponse
 
 MAX_RETRIES = 10
 
-# Logger configuration
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-)
+logger = get_logger(__name__)
 
-logger = logging.getLogger(__name__)
-
-def scan_file(file_path: str, filename: str) -> VTUploadResponse | None:
+def scan_file(file_path: str) -> VTUploadResponse | None:
     """Scan file with VirusTotal
     Args:
         file_path (str): File path
-        filename (str): File name
     Returns: VTUploadResponse | None
     """
     # Check if API Key and URL are set
@@ -31,7 +23,7 @@ def scan_file(file_path: str, filename: str) -> VTUploadResponse | None:
     try:
         # Open file
         with open(file_path, "rb") as f:
-            files = {"file": (filename, f)}
+            files = {"file": f}
             headers = {"x-apikey": VT_API_KEY}
             # Send file to VirusTotal
             response = requests.post(
@@ -72,7 +64,7 @@ def get_analysis(analysis_id: str) -> VTAnalysisResponse | None:
             retry_count += 1
             time.sleep(1)
 
-        logger.warning(f"Max retries reached")
+        logger.warning("Max retries reached")
     except Exception as e:
         logger.error(f"Request Error: {e}")
         return None
