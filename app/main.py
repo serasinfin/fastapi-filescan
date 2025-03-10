@@ -33,7 +33,7 @@ async def scan(file: UploadFile = File(...)) -> ScanResponse:
             temp_file.write(content)
             temp_file.flush()
             # Scan file with VirusTotal
-            scan_result = scan_file(temp_file.name)
+            scan_result = await scan_file(temp_file.name)
             if not scan_result:
                 raise HTTPException(
                     status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -48,7 +48,7 @@ async def scan(file: UploadFile = File(...)) -> ScanResponse:
         )
 
     # If the scan was successful, get the analysis results
-    analysis = get_analysis(scan_result.data.id)
+    analysis = await get_analysis(scan_result.data.id)
     if not analysis:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
