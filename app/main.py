@@ -7,7 +7,7 @@ from starlette import status
 from app.scanner import scan_file, get_analysis
 from app.schemas import ScanResponse
 
-app = FastAPI()
+app = FastAPI(title="FastAPI FileScan")
 
 UPLOAD_MAX_SIZE = 32 * 1024 * 1024  # 32MB
 
