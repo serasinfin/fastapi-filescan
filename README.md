@@ -1,4 +1,4 @@
-# FastAPI File Scan
+# FastAPI File Scan 🔍
 
 This application allows you to scan files using the VirusTotal API through an endpoint in FastAPI.
 
