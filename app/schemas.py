@@ -8,6 +8,10 @@ class VTUploadResponseData(BaseModel):
 
 
 class VTUploadResponse(BaseModel):
+    """
+    Response model for the VT upload API when uploading a file
+    (https://www.virustotal.com/api/v3/files)
+    """
     data: VTUploadResponseData
 
 
@@ -31,10 +35,17 @@ class VTAnalysisResponseData(BaseModel):
 
 
 class VTAnalysisResponse(BaseModel):
+    """
+    Response model for the VT analysis API when requesting the analysis
+    (https://www.virustotal.com/api/v3/analyses/{id})
+    """
     data: VTAnalysisResponseData
 
 
 class ScanResponse(BaseModel):
+    """
+    Response model from this API after scanning a file with VirusTotal
+    """
     id: str
     status: str
     stats: VTAnalysisStats

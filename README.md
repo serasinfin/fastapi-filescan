@@ -1,37 +1,41 @@
 # FastAPI File Scan 🔍
 
-## Description
 This application allows you to scan files using the VirusTotal API through an endpoint in FastAPI.
 
-## Requirements
-- Python 3.12 or higher
-- Docker
+# Getting Started
 
-## Configuration
+You'll need:
+- 🐳 [Docker](https://www.docker.com/get-started) installed.
+- 🔑 [VirusTotal API key](https://developers.virustotal.com/reference#getting-started) to use the VirusTotal API.
 
-### Create the `.env` file
-Before building and running the application, create a `.env` file in the root directory of the project with the following content:
+### 🧬 1. Clone the repository
+```sh
+git clone https://github.com/serasinfin/fastapi-filescan.git
+```
+
+### 📜 2. Create the `.env` file
+Inside the project directory, create a `.env` file with the following content:
 
 ```dotenv
-VT_API_KEY=your_virustotal_api_key
+VT_API_KEY=virustotal_api_key
 VT_API_URL=https://www.virustotal.com/api/v3
 ```
 
-Make sure to replace `your_virustotal_api_key` with your generated key.
+Make sure to replace `virustotal_api_key` with your generated key.
 
-## Building and Running with Docker
+### 🚀 3. Build and run the application
 
-### Build the Docker image
+Build the Docker image
 ```sh
 docker build -t fastapi-filescan .
 ```
 
-### Run the container
+Run the container
 ```sh
-docker run -d -p 8000:8000 fastapi-filescan
+docker run -p 8000:8000 fastapi-filescan
 ```
 
-The application will be available at `http://localhost:8000`.
+The application will be available at 👉🏻`http://localhost:8000`.
 
 ## API Documentation
 
@@ -49,3 +53,6 @@ The application will be available at `http://localhost:8000`.
 ```sh
 curl -X POST "http://localhost:8000/scan" -F "file=@/path/to/file"
 ```
+
+### Also, you can use the Swagger UI
+The API documentation is available at 👉🏻`http://localhost:8000/docs`.
